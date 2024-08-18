@@ -1,6 +1,6 @@
 import './globals.css';
-import Footer from './components/Footer';
-import Navbar from './components/Navbar';
+import Footer from '../components/Footer';
+import Navbar from '../components/Navbar';
 
 export const metadata = {
   title: 'AI Code and DS Assistant',
