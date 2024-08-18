@@ -10,6 +10,8 @@ import { DoublyLinkedList } from './components/DoublyLinkedList';
 import { SinglyCircularLinkedList } from './components/SinglyCircularLinkedList';
 import { DoublyCircularLinkedList } from './components/DoublyCircularLinkedList';
 import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
+import CopyToClipboard from 'react-copy-to-clipboard';
+import { FiCheck, FiClipboard } from 'react-icons/fi';
 
 const singlyLinkedListCode = `
 class Node:
@@ -336,6 +338,15 @@ const LinkedListsPage: React.FC = () => {
     }
   };
 
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000); 
+  };
+
   return (
     <div className="py-10 px-6 sm:px-8 lg:px-10">
       <motion.h1
@@ -365,9 +376,19 @@ const LinkedListsPage: React.FC = () => {
           <strong>Average Case:</strong> Θ(n)<br />
           <strong>Worst Case:</strong> O(n)
         </p>
-        <SyntaxHighlighter language="python" style={dracula}>
-          {singlyLinkedListCode}
-        </SyntaxHighlighter>
+
+        <div className="relative">
+          <CopyToClipboard text={singlyLinkedListCode} onCopy={handleCopy}>
+            <button className="absolute right-0 top-0 bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition duration-300 flex items-center space-x-2">
+              {copied ? <FiCheck /> : <FiClipboard />}
+              <span>{copied ? 'Copied!' : 'Copy'}</span>
+            </button>
+          </CopyToClipboard>
+
+          <SyntaxHighlighter language="python" style={dracula}>
+            {singlyLinkedListCode}
+          </SyntaxHighlighter>
+        </div>
         <button
           onClick={() => runDemo('singly')}
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300 mt-4"
@@ -400,9 +421,18 @@ const LinkedListsPage: React.FC = () => {
           <strong>Average Case:</strong> Θ(n)<br />
           <strong>Worst Case:</strong> O(n)
         </p>
-        <SyntaxHighlighter language="python" style={dracula}>
-          {doublyLinkedListCode}
-        </SyntaxHighlighter>
+        <div className="relative">
+          <CopyToClipboard text={doublyLinkedListCode} onCopy={handleCopy}>
+            <button className="absolute right-0 top-0 bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition duration-300 flex items-center space-x-2">
+              {copied ? <FiCheck /> : <FiClipboard />}
+              <span>{copied ? 'Copied!' : 'Copy'}</span>
+            </button>
+          </CopyToClipboard>
+
+          <SyntaxHighlighter language="python" style={dracula}>
+            {doublyLinkedListCode}
+          </SyntaxHighlighter>
+        </div>
         <button
           onClick={() => runDemo('doubly')}
           className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300 mt-4"
@@ -435,9 +465,18 @@ const LinkedListsPage: React.FC = () => {
           <strong>Average Case:</strong> Θ(n)<br />
           <strong>Worst Case:</strong> O(n)
         </p>
-        <SyntaxHighlighter language="python" style={dracula}>
-          {singlyCircularLinkedListCode}
-        </SyntaxHighlighter>
+        <div className="relative">
+          <CopyToClipboard text={singlyCircularLinkedListCode} onCopy={handleCopy}>
+            <button className="absolute right-0 top-0 bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition duration-300 flex items-center space-x-2">
+              {copied ? <FiCheck /> : <FiClipboard />}
+              <span>{copied ? 'Copied!' : 'Copy'}</span>
+            </button>
+          </CopyToClipboard>
+
+          <SyntaxHighlighter language="python" style={dracula}>
+            {singlyCircularLinkedListCode}
+          </SyntaxHighlighter>
+        </div>
         <button
           onClick={() => runDemo('singlyCircular')}
           className="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition duration-300 mt-4"
@@ -470,9 +509,18 @@ const LinkedListsPage: React.FC = () => {
           <strong>Average Case:</strong> Θ(n)<br />
           <strong>Worst Case:</strong> O(n)
         </p>
-        <SyntaxHighlighter language="python" style={dracula}>
-          {doublyCircularLinkedListCode}
-        </SyntaxHighlighter>
+        <div className="relative">
+          <CopyToClipboard text={doublyCircularLinkedListCode} onCopy={handleCopy}>
+            <button className="absolute right-0 top-0 bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition duration-300 flex items-center space-x-2">
+              {copied ? <FiCheck /> : <FiClipboard />}
+              <span>{copied ? 'Copied!' : 'Copy'}</span>
+            </button>
+          </CopyToClipboard>
+
+          <SyntaxHighlighter language="python" style={dracula}>
+            {doublyCircularLinkedListCode}
+          </SyntaxHighlighter>
+        </div>
         <button
           onClick={() => runDemo('doublyCircular')}
           className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-300 mt-4"
