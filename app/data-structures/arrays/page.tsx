@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { CustomArray } from './components/Array';
-import { CustomMatrix } from './components/Matrix';
-import { CustomTensor } from './components/Tensor';
+import { CustomArray } from '../../../components/data-structures/arrays/Array';
+import { CustomMatrix } from '../../../components/data-structures/arrays/Matrix';
+import { CustomTensor } from '../../../components/data-structures/arrays/Tensor';
 import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
