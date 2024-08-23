@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { SimpleQueue } from './components/SimpleQueue';
-import { PriorityQueue } from './components/PriorityQueue';
-import { Deque } from './components/Deque';
+import { SimpleQueue } from '../../../components/data-structures/queues/SimpleQueue';
+import { PriorityQueue } from '../../../components/data-structures/queues/PriorityQueue';
+import { Deque } from '../../../components/data-structures/queues/Deque';
 import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import { CopyToClipboard } from 'react-copy-to-clipboard';

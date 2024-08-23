@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import "chart.js/auto";
 import { Line } from 'react-chartjs-2';
-import { Stack } from './components/Stack';
+import { Stack } from '../../../components/data-structures/stacks/Stack';
 import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
