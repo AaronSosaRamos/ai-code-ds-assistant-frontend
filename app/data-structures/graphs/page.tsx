@@ -370,7 +370,7 @@ const GraphsPage: React.FC = () => {
           An Acyclic Graph is a graph with no cycles. This means there is no path that starts and ends at the same vertex.
         </p>
         <div className="relative">
-          <CopyToClipboard text="AcyclicGraph Code Here" onCopy={handleCopy}>
+          <CopyToClipboard text={acyclicGraphCode} onCopy={handleCopy}>
             <button className="absolute right-0 top-0 bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition duration-300 flex items-center space-x-2">
               {copied ? <FiCheck /> : <FiClipboard />}
               <span>{copied ? 'Copied!' : 'Copy'}</span>
@@ -407,7 +407,7 @@ const GraphsPage: React.FC = () => {
           A Cyclic Graph is a graph that contains at least one cycle. A cycle is a path of edges and vertices wherein a vertex is reachable from itself.
         </p>
         <div className="relative">
-          <CopyToClipboard text="CyclicGraph Code Here" onCopy={handleCopy}>
+          <CopyToClipboard text={cyclicGraphCode} onCopy={handleCopy}>
             <button className="absolute right-0 top-0 bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition duration-300 flex items-center space-x-2">
               {copied ? <FiCheck /> : <FiClipboard />}
               <span>{copied ? 'Copied!' : 'Copy'}</span>
@@ -444,7 +444,7 @@ const GraphsPage: React.FC = () => {
           A Directed Graph is a graph in which edges have orientations. That is, each edge is directed from one vertex to another.
         </p>
         <div className="relative">
-          <CopyToClipboard text="DirectedGraph Code Here" onCopy={handleCopy}>
+          <CopyToClipboard text={directedGraphCode} onCopy={handleCopy}>
             <button className="absolute right-0 top-0 bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition duration-300 flex items-center space-x-2">
               {copied ? <FiCheck /> : <FiClipboard />}
               <span>{copied ? 'Copied!' : 'Copy'}</span>
@@ -481,7 +481,7 @@ const GraphsPage: React.FC = () => {
           A Directed Weighted Graph is a directed graph in which edges have weights. This type of graph is useful for modeling various real-world systems like networks.
         </p>
         <div className="relative">
-          <CopyToClipboard text="DirectedWeightedGraph Code Here" onCopy={handleCopy}>
+          <CopyToClipboard text={directedWeightedGraphCode} onCopy={handleCopy}>
             <button className="absolute right-0 top-0 bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition duration-300 flex items-center space-x-2">
               {copied ? <FiCheck /> : <FiClipboard />}
               <span>{copied ? 'Copied!' : 'Copy'}</span>
@@ -518,7 +518,7 @@ const GraphsPage: React.FC = () => {
           An Undirected Graph is a graph in which edges have no orientation. The edge (A, B) is identical to the edge (B, A).
         </p>
         <div className="relative">
-          <CopyToClipboard text="UndirectedGraph Code Here" onCopy={handleCopy}>
+          <CopyToClipboard text={undirectedGraphCode} onCopy={handleCopy}>
             <button className="absolute right-0 top-0 bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition duration-300 flex items-center space-x-2">
               {copied ? <FiCheck /> : <FiClipboard />}
               <span>{copied ? 'Copied!' : 'Copy'}</span>
@@ -555,7 +555,7 @@ const GraphsPage: React.FC = () => {
           An Undirected Weighted Graph is a graph in which edges have weights, and there is no orientation.
         </p>
         <div className="relative">
-          <CopyToClipboard text="UndirectedWeightedGraph Code Here" onCopy={handleCopy}>
+          <CopyToClipboard text={undirectedWeightedGraphCode} onCopy={handleCopy}>
             <button className="absolute right-0 top-0 bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition duration-300 flex items-center space-x-2">
               {copied ? <FiCheck /> : <FiClipboard />}
               <span>{copied ? 'Copied!' : 'Copy'}</span>
@@ -592,7 +592,7 @@ const GraphsPage: React.FC = () => {
           An Unweighted Graph is a graph in which edges do not have weights. This is useful for simple connections where distance or weight is not a factor.
         </p>
         <div className="relative">
-          <CopyToClipboard text="UnweightedGraph Code Here" onCopy={handleCopy}>
+          <CopyToClipboard text={unweightedGraphCode} onCopy={handleCopy}>
             <button className="absolute right-0 top-0 bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition duration-300 flex items-center space-x-2">
               {copied ? <FiCheck /> : <FiClipboard />}
               <span>{copied ? 'Copied!' : 'Copy'}</span>
@@ -629,7 +629,7 @@ const GraphsPage: React.FC = () => {
           A Weighted Graph is a graph in which each edge is assigned a weight. This can be useful in cases such as finding the shortest path or the longest path.
         </p>
         <div className="relative">
-          <CopyToClipboard text="WeightedGraph Code Here" onCopy={handleCopy}>
+          <CopyToClipboard text={weightedGraphCode} onCopy={handleCopy}>
             <button className="absolute right-0 top-0 bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition duration-300 flex items-center space-x-2">
               {copied ? <FiCheck /> : <FiClipboard />}
               <span>{copied ? 'Copied!' : 'Copy'}</span>
