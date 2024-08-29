@@ -112,7 +112,7 @@ const BinaryTreesPage: React.FC = () => {
             <FaCircle className="w-12 h-12 sm:w-16 sm:h-16 text-red-500 mb-4" />
             <h2 className="text-xl sm:text-2xl font-bold mb-2">Red-Black Trees</h2>
             <p className="text-center text-sm sm:text-base mb-4">
-              Dive into red-black trees, a type of self-balancing binary search tree.
+              Dive into red-black trees, a type of self-balancing binary search tree. 
             </p>
             <a
               href="/data-structures/binary-trees/red-black"
