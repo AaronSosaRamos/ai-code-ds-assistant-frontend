@@ -6,7 +6,7 @@ import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { BsFillLayersFill } from "react-icons/bs";
 
 interface ArchitectureDetailsProps {
-  architectureData: any; // Usamos `any` para manejar la estructura de los datos
+  architectureData: any;
 }
 
 const ArchitectureDetails: React.FC<ArchitectureDetailsProps> = ({ architectureData }) => {
@@ -23,12 +23,13 @@ const ArchitectureDetails: React.FC<ArchitectureDetailsProps> = ({ architectureD
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      {/* Nombre de la arquitectura */}
+      <h1 className="text-4xl font-extrabold text-center text-blue-800 dark:text-blue-300 mb-10">
+        Detected Architecture
+      </h1>
       <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-4 flex items-center">
         <FaServer className="mr-2 text-blue-500" /> {architecture_name || "Unknown Architecture"}
       </h2>
 
-      {/* Capas */}
       {layers && layers.length > 0 && (
         <div className="mb-6">
           <h3 className="text-2xl font-semibold text-gray-700 dark:text-gray-300 flex items-center">
@@ -44,7 +45,6 @@ const ArchitectureDetails: React.FC<ArchitectureDetailsProps> = ({ architectureD
         </div>
       )}
 
-      {/* Componentes */}
       {components && components.length > 0 && (
         <div className="mb-6">
           <h3 className="text-2xl font-semibold text-gray-700 dark:text-gray-300 flex items-center">
@@ -58,15 +58,12 @@ const ArchitectureDetails: React.FC<ArchitectureDetailsProps> = ({ architectureD
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 * index, duration: 0.5 }}
             >
-              {/* Nombre del componente */}
               <h4 className="text-xl font-semibold text-gray-800 dark:text-white flex items-center">
                 <MdOutlineDataObject className="mr-2 text-blue-500" /> {component.name || "Unnamed Component"}
               </h4>
 
-              {/* Descripción del componente */}
               <p className="text-gray-600 dark:text-gray-400 mt-1">{component.description || "No description available."}</p>
 
-              {/* Dependencias */}
               {component.dependencies && component.dependencies.length > 0 && (
                 <div className="mt-2">
                   <span className="font-semibold text-gray-700 dark:text-gray-300">Dependencies:</span>
@@ -80,7 +77,6 @@ const ArchitectureDetails: React.FC<ArchitectureDetailsProps> = ({ architectureD
                 </div>
               )}
 
-              {/* Endpoints expuestos */}
               {component.exposed_endpoints && component.exposed_endpoints.length > 0 && (
                 <div className="mt-2">
                   <span className="font-semibold text-gray-700 dark:text-gray-300">Exposed Endpoints:</span>
@@ -94,7 +90,6 @@ const ArchitectureDetails: React.FC<ArchitectureDetailsProps> = ({ architectureD
                 </div>
               )}
 
-              {/* Datos de entrada */}
               {component.input_data && component.input_data.length > 0 && (
                 <div className="mt-2">
                   <span className="font-semibold text-gray-700 dark:text-gray-300">Input Data:</span>
@@ -108,7 +103,6 @@ const ArchitectureDetails: React.FC<ArchitectureDetailsProps> = ({ architectureD
                 </div>
               )}
 
-              {/* Datos de salida */}
               {component.output_data && component.output_data.length > 0 && (
                 <div className="mt-2">
                   <span className="font-semibold text-gray-700 dark:text-gray-300">Output Data:</span>
@@ -126,7 +120,6 @@ const ArchitectureDetails: React.FC<ArchitectureDetailsProps> = ({ architectureD
         </div>
       )}
 
-      {/* Descripción del flujo de datos */}
       {data_flow_description && (
         <div className="mt-6">
           <h3 className="text-2xl font-semibold text-gray-700 dark:text-gray-300 flex items-center">
