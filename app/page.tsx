@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ChatBubbleLeftEllipsisIcon, BookOpenIcon } from '@heroicons/react/24/solid';
+import { ChatBubbleLeftEllipsisIcon, BookOpenIcon, CubeIcon } from '@heroicons/react/24/solid';
 
 const MainScreen: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -14,7 +14,6 @@ const MainScreen: React.FC = () => {
 
   return (
     <div className={`min-h-screen flex flex-col items-center justify-center ${isDarkMode ? 'bg-gray-900' : 'bg-gradient-to-r from-purple-500 to-blue-500'}`}>
-      {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 flex flex-col items-center space-y-12">
         <motion.div
           className="text-center"
@@ -30,9 +29,7 @@ const MainScreen: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* Features Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {/* Code Assistance Feature */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           <motion.div
             className={`rounded-lg shadow-lg p-8 flex flex-col items-center transform transition duration-500 hover:scale-105 ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'}`}
             whileHover={{ scale: 1.05 }}
@@ -50,7 +47,6 @@ const MainScreen: React.FC = () => {
             </a>
           </motion.div>
 
-          {/* Data Structures Feature */}
           <motion.div
             className={`rounded-lg shadow-lg p-8 flex flex-col items-center transform transition duration-500 hover:scale-105 ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'}`}
             whileHover={{ scale: 1.05 }}
@@ -65,6 +61,23 @@ const MainScreen: React.FC = () => {
               className={`px-6 py-2 rounded-full transition duration-300 ${isDarkMode ? 'bg-green-500 text-white hover:bg-green-600' : 'bg-green-500 text-white hover:bg-green-600'}`}
             >
               Explore Now
+            </a>
+          </motion.div>
+
+          <motion.div
+            className={`rounded-lg shadow-lg p-8 flex flex-col items-center transform transition duration-500 hover:scale-105 ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'}`}
+            whileHover={{ scale: 1.05 }}
+          >
+            <CubeIcon className="w-16 h-16 text-purple-500 mb-4" />
+            <h2 className="text-2xl font-bold mb-2">NexaMind</h2>
+            <p className="text-center mb-4">
+              Your AI Assistant for Software Architectures. Get insights and guidance on best practices for designing architectures.
+            </p>
+            <a
+              href="/nexamind"
+              className={`px-6 py-2 rounded-full transition duration-300 ${isDarkMode ? 'bg-purple-500 text-white hover:bg-purple-600' : 'bg-purple-500 text-white hover:bg-purple-600'}`}
+            >
+              Get Assistance
             </a>
           </motion.div>
         </div>

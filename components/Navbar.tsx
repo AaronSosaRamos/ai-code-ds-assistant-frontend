@@ -24,27 +24,24 @@ const Navbar: React.FC = () => {
     return (
         <nav className="bg-white dark:bg-gray-800 shadow-md transition-colors duration-300">
             <div className="mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
-                {/* Logo and Title */}
                 <div className="flex items-center">
                     <div className="flex-shrink-0 text-xl font-bold text-gray-800 dark:text-white">
                         <span className="text-blue-500">AI</span> Code and DS Assistant
                     </div>
                 </div>
 
-                {/* Navigation Links for Desktop */}
-                <div className="hidden md:flex items-center space-x-6 "> {/* Reduce space-x value */}
-                    {['Home', 'Code Assistance', 'Data Structures'].map((item) => (
+                <div className="hidden md:flex items-center space-x-6">
+                    {['Home', 'Code Assistance', 'Data Structures', 'NexaMind'].map((item) => (
                         <a
                             key={item}
                             href={item === 'Home' ? '/' : `/${item.toLowerCase().replace(' ', '-')}`}
-                            className="text-gray-800 dark:text-white hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300 px-2 py-1" // Adjust padding
+                            className="text-gray-800 dark:text-white hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300 px-2 py-1"
                         >
                             {item}
                         </a>
                     ))}
                 </div>
 
-                {/* Dark Mode Toggle for Desktop */}
                 <div className="hidden md:flex items-center">
                     <Switch
                         checked={darkMode}
@@ -64,7 +61,6 @@ const Navbar: React.FC = () => {
                     </Switch>
                 </div>
 
-                {/* Mobile Menu Button */}
                 <div className="flex md:hidden">
                     <button
                         onClick={toggleMobileMenu}
@@ -83,11 +79,10 @@ const Navbar: React.FC = () => {
                 </div>
             </div>
 
-            {/* Mobile Menu */}
             {isMobileMenuOpen && (
                 <div className="md:hidden">
                     <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                        {['Home', 'Code Assistance', 'Data Structures'].map((item) => (
+                        {['Home', 'Code Assistance', 'Data Structures', 'NexaMind'].map((item) => (
                             <a
                                 key={item}
                                 href={item === 'Home' ? '/' : `/${item.toLowerCase().replace(' ', '-')}`}
