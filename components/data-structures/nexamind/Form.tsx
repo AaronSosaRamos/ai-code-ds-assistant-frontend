@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, Suspense } from "react";
@@ -41,572 +42,59 @@ const NexaMindForm = () => {
         resolver: zodResolver(NexaMindSchema),
     });
 
-    const result = {
-        detected_architecture: {
-            architecture_name: "Microservices Architecture",
-            layers: ["Presentation", "API Gateway", "Business Logic", "Data"],
-            components: [
-                {
-                    name: "Client UI/UX (React)",
-                    description: "The user interface of the application, built using React.",
-                    dependencies: ["API Gateway"],
-                    type_component: "Service",
-                    exposed_endpoints: null,
-                    input_data: null,
-                    output_data: ["API requests"],
-                },
-                {
-                    name: "Client UI/UX (Angular)",
-                    description: "The user interface of the application, built using Angular.",
-                    dependencies: ["API Gateway"],
-                    type_component: "Service",
-                    exposed_endpoints: null,
-                    input_data: null,
-                    output_data: ["API requests"],
-                },
-                {
-                    name: "Client UI/UX (Vue)",
-                    description: "The user interface of the application, built using Vue.",
-                    dependencies: ["API Gateway"],
-                    type_component: "Service",
-                    exposed_endpoints: null,
-                    input_data: null,
-                    output_data: ["API requests"],
-                },
-                {
-                    name: "API Gateway",
-                    description: "A central point of entry for all API requests.",
-                    dependencies: [
-                        "Load Balancer",
-                        "LLM Code Assistant (FastAPI)",
-                        "LLM Documentation Builder (FastAPI)",
-                        "LLM Advanced RAG Planner (FastAPI)",
-                    ],
-                    type_component: "Service",
-                    exposed_endpoints: [
-                        "/code-assistant",
-                        "/documentation-builder",
-                        "/rag-planner",
-                    ],
-                    input_data: ["API requests"],
-                    output_data: ["API responses"],
-                },
-                {
-                    name: "Load Balancer",
-                    description: "Distributes incoming requests across multiple instances of the LLM services.",
-                    dependencies: [
-                        "LLM Code Assistant (FastAPI)",
-                        "LLM Documentation Builder (FastAPI)",
-                        "LLM Advanced RAG Planner (FastAPI)",
-                    ],
-                    type_component: "Service",
-                    exposed_endpoints: null,
-                    input_data: ["API requests"],
-                    output_data: ["API requests"],
-                },
-                {
-                    name: "LLM Code Assistant (FastAPI)",
-                    description: "A large language model service that provides code assistance.",
-                    dependencies: null,
-                    type_component: "Service",
-                    exposed_endpoints: ["/code-assistant"],
-                    input_data: ["Code prompts"],
-                    output_data: ["Generated code"],
-                },
-                {
-                    name: "LLM Documentation Builder (FastAPI)",
-                    description: "A large language model service that helps build documentation.",
-                    dependencies: null,
-                    type_component: "Service",
-                    exposed_endpoints: ["/documentation-builder"],
-                    input_data: ["Documentation prompts"],
-                    output_data: ["Generated documentation"],
-                },
-                {
-                    name: "LLM Advanced RAG Planner (FastAPI)",
-                    description: "A large language model service that plans advanced RAG (Retrieval Augmented Generation) tasks.",
-                    dependencies: null,
-                    type_component: "Service",
-                    exposed_endpoints: ["/rag-planner"],
-                    input_data: ["RAG planning prompts"],
-                    output_data: ["RAG planning results"],
-                },
-            ],
-            external_services: null,
-            events: null,
-            data_flow_description:
-                "Clients send API requests to the API Gateway, which routes them to the Load Balancer. The Load Balancer distributes the requests across multiple instances of the LLM services. Each LLM service processes the request and returns a response to the API Gateway, which then sends the response back to the client.",
-        },
-        architecture_with_requirements: {
-            architecture: {
-                architecture_name: "Microservices Architecture",
-                layers: ["Presentation", "API Gateway", "Business Logic", "Data"],
-                components: [
-                    {
-                        name: "Client UI/UX (React)",
-                        description: "The user interface of the application, built using React.",
-                        dependencies: ["API Gateway"],
-                        type_component: "Service",
-                        exposed_endpoints: null,
-                        input_data: null,
-                        output_data: ["API requests"]
-                    },
-                    {
-                        name: "Client UI/UX (Angular)",
-                        description: "The user interface of the application, built using Angular.",
-                        dependencies: ["API Gateway"],
-                        type_component: "Service",
-                        exposed_endpoints: null,
-                        input_data: null,
-                        output_data: ["API requests"]
-                    },
-                    {
-                        name: "Client UI/UX (Vue)",
-                        description: "The user interface of the application, built using Vue.",
-                        dependencies: ["API Gateway"],
-                        type_component: "Service",
-                        exposed_endpoints: null,
-                        input_data: null,
-                        output_data: ["API requests"]
-                    },
-                    {
-                        name: "API Gateway",
-                        description: "A central point of entry for all API requests.",
-                        dependencies: [
-                            "Load Balancer",
-                            "LLM Code Assistant (FastAPI)",
-                            "LLM Documentation Builder (FastAPI)",
-                            "LLM Advanced RAG Planner (FastAPI)"
-                        ],
-                        type_component: "Service",
-                        exposed_endpoints: [
-                            "/code-assistant",
-                            "/documentation-builder",
-                            "/rag-planner"
-                        ],
-                        input_data: ["API requests"],
-                        output_data: ["API responses"]
-                    },
-                    {
-                        name: "Load Balancer",
-                        description: "Distributes incoming requests across multiple instances of the LLM services.",
-                        dependencies: [
-                            "LLM Code Assistant (FastAPI)",
-                            "LLM Documentation Builder (FastAPI)",
-                            "LLM Advanced RAG Planner (FastAPI)"
-                        ],
-                        type_component: "Service",
-                        exposed_endpoints: null,
-                        input_data: ["API requests"],
-                        output_data: ["API requests"]
-                    },
-                    {
-                        name: "LLM Code Assistant (FastAPI)",
-                        description: "A large language model service that provides code assistance.",
-                        dependencies: null,
-                        type_component: "Service",
-                        exposed_endpoints: ["/code-assistant"],
-                        input_data: ["Code prompts"],
-                        output_data: ["Generated code"]
-                    },
-                    {
-                        name: "LLM Documentation Builder (FastAPI)",
-                        description: "A large language model service that helps build documentation.",
-                        dependencies: null,
-                        type_component: "Service",
-                        exposed_endpoints: ["/documentation-builder"],
-                        input_data: ["Documentation prompts"],
-                        output_data: ["Generated documentation"]
-                    },
-                    {
-                        name: "LLM Advanced RAG Planner (FastAPI)",
-                        description: "A large language model service that plans advanced RAG (Retrieval Augmented Generation) tasks.",
-                        dependencies: null,
-                        type_component: "Service",
-                        exposed_endpoints: ["/rag-planner"],
-                        input_data: ["RAG planning prompts"],
-                        output_data: ["RAG planning results"]
-                    }
-                ],
-                external_services: null,
-                events: null,
-                data_flow_description: "Clients send API requests to the API Gateway, which routes them to the Load Balancer. The Load Balancer distributes the requests across multiple instances of the LLM services. Each LLM service processes the request and returns a response to the API Gateway, which then sends the response back to the client."
-            },
-            requirements: [
-                {
-                    name: "Cross-platform support",
-                    description: "El sistema debe permitir que los clientes de React, Angular y Vue interactúen con el backend sin problemas.",
-                    must_have_layers: [],
-                    must_have_components: [],
-                    must_have_services: null,
-                    must_handle_events: null
-                },
-                {
-                    name: "Load balancing",
-                    description: "El API Gateway debe distribuir las solicitudes de manera equitativa entre los servicios de LLM.",
-                    must_have_layers: [],
-                    must_have_components: [],
-                    must_have_services: null,
-                    must_handle_events: null
-                },
-                {
-                    name: "LLM interoperability",
-                    description: "Los servicios LLM (Asistente de Código, Generador de Documentación y RAG Avanzado) deben ser accesibles y funcionar correctamente a través de FastAPI.",
-                    must_have_layers: [],
-                    must_have_components: [
-                        "LLM Code Assistant (FastAPI)",
-                        "LLM Documentation Builder (FastAPI)",
-                        "LLM Advanced RAG Planner (FastAPI)"
-                    ],
-                    must_have_services: null,
-                    must_handle_events: null
-                },
-                {
-                    name: "Scalability",
-                    description: "La arquitectura debe manejar incrementos en el volumen de usuarios o solicitudes sin degradación en el rendimiento.",
-                    must_have_layers: [],
-                    must_have_components: [],
-                    must_have_services: null,
-                    must_handle_events: null
-                },
-                {
-                    name: "API security",
-                    description: "El sistema debe asegurar una autenticación y autorización seguras para los usuarios que accedan a los servicios.",
-                    must_have_layers: [],
-                    must_have_components: [],
-                    must_have_services: null,
-                    must_handle_events: null
-                }
-            ]
-        },
-        improved_architecture: {
-            architecture: {
-                architecture_name: "Microservices Architecture",
-                layers: ["Presentation", "API Gateway", "Business Logic", "Data"],
-                components: [
-                    {
-                        name: "Client UI/UX (React)",
-                        description: "The user interface of the application, built using React.",
-                        dependencies: ["API Gateway"],
-                        type_component: "Service",
-                        exposed_endpoints: null,
-                        input_data: null,
-                        output_data: ["API requests"]
-                    },
-                    {
-                        name: "Client UI/UX (Angular)",
-                        description: "The user interface of the application, built using Angular.",
-                        dependencies: ["API Gateway"],
-                        type_component: "Service",
-                        exposed_endpoints: null,
-                        input_data: null,
-                        output_data: ["API requests"]
-                    },
-                    {
-                        name: "Client UI/UX (Vue)",
-                        description: "The user interface of the application, built using Vue.",
-                        dependencies: ["API Gateway"],
-                        type_component: "Service",
-                        exposed_endpoints: null,
-                        input_data: null,
-                        output_data: ["API requests"]
-                    },
-                    {
-                        name: "API Gateway",
-                        description: "A central point of entry for all API requests.",
-                        dependencies: [
-                            "Load Balancer",
-                            "LLM Code Assistant (FastAPI)",
-                            "LLM Documentation Builder (FastAPI)",
-                            "LLM Advanced RAG Planner (FastAPI)"
-                        ],
-                        type_component: "Service",
-                        exposed_endpoints: ["/code-assistant", "/documentation-builder", "/rag-planner"],
-                        input_data: ["API requests"],
-                        output_data: ["API responses"]
-                    },
-                    {
-                        name: "Load Balancer",
-                        description: "Distributes incoming requests across multiple instances of the LLM services.",
-                        dependencies: [
-                            "LLM Code Assistant (FastAPI)",
-                            "LLM Documentation Builder (FastAPI)",
-                            "LLM Advanced RAG Planner (FastAPI)"
-                        ],
-                        type_component: "Service",
-                        exposed_endpoints: null,
-                        input_data: ["API requests"],
-                        output_data: ["API requests"]
-                    },
-                    {
-                        name: "LLM Code Assistant (FastAPI)",
-                        description: "A large language model service that provides code assistance.",
-                        dependencies: null,
-                        type_component: "Service",
-                        exposed_endpoints: ["/code-assistant"],
-                        input_data: ["Code prompts"],
-                        output_data: ["Generated code"]
-                    },
-                    {
-                        name: "LLM Documentation Builder (FastAPI)",
-                        description: "A large language model service that helps build documentation.",
-                        dependencies: null,
-                        type_component: "Service",
-                        exposed_endpoints: ["/documentation-builder"],
-                        input_data: ["Documentation prompts"],
-                        output_data: ["Generated documentation"]
-                    },
-                    {
-                        name: "LLM Advanced RAG Planner (FastAPI)",
-                        description: "A large language model service that plans advanced RAG (Retrieval Augmented Generation) tasks.",
-                        dependencies: null,
-                        type_component: "Service",
-                        exposed_endpoints: ["/rag-planner"],
-                        input_data: ["RAG planning prompts"],
-                        output_data: ["RAG planning results"]
-                    }
-                ],
-                external_services: null,
-                events: null,
-                data_flow_description:
-                    "Clients send API requests to the API Gateway, which routes them to the Load Balancer. The Load Balancer distributes the requests across multiple instances of the LLM services. Each LLM service processes the request and returns a response to the API Gateway, which then sends the response back to the client."
-            },
-            requirements: [
-                {
-                    name: "Cross-platform support",
-                    description:
-                        "El sistema debe permitir que los clientes de React, Angular y Vue interactúen con el backend sin problemas.",
-                    must_have_layers: [],
-                    must_have_components: [],
-                    must_have_services: null,
-                    must_handle_events: null
-                },
-                {
-                    name: "Load balancing",
-                    description: "El API Gateway debe distribuir las solicitudes de manera equitativa entre los servicios de LLM.",
-                    must_have_layers: [],
-                    must_have_components: [],
-                    must_have_services: null,
-                    must_handle_events: null
-                },
-                {
-                    name: "LLM interoperability",
-                    description:
-                        "Los servicios LLM (Asistente de Código, Generador de Documentación y RAG Avanzado) deben ser accesibles y funcionar correctamente a través de FastAPI.",
-                    must_have_layers: [],
-                    must_have_components: ["LLM Code Assistant (FastAPI)", "LLM Documentation Builder (FastAPI)", "LLM Advanced RAG Planner (FastAPI)"],
-                    must_have_services: null,
-                    must_handle_events: null
-                },
-                {
-                    name: "Scalability",
-                    description:
-                        "La arquitectura debe manejar incrementos en el volumen de usuarios o solicitudes sin degradación en el rendimiento.",
-                    must_have_layers: [],
-                    must_have_components: [],
-                    must_have_services: null,
-                    must_handle_events: null
-                },
-                {
-                    name: "API security",
-                    description:
-                        "El sistema debe asegurar una autenticación y autorización seguras para los usuarios que accedan a los servicios.",
-                    must_have_layers: [],
-                    must_have_components: [],
-                    must_have_services: null,
-                    must_handle_events: null
-                }
-            ],
-            suggestions: [
-                {
-                    suggestion: "Implement API Security Layer",
-                    details:
-                        "Add an Authentication and Authorization layer at the API Gateway to ensure secure access to all services. Consider using OAuth2 or JWT for token-based authentication."
-                },
-                {
-                    suggestion: "Introduce a Service Registry",
-                    details:
-                        "Implement a service registry (like Consul or Eureka) to facilitate service discovery. This will improve LLM interoperability by allowing services to dynamically discover each other."
-                },
-                {
-                    suggestion: "Add Caching Mechanism",
-                    details:
-                        "Introduce a caching layer between the API Gateway and the LLM services to improve scalability and performance by reducing redundant calls to the LLM services."
-                },
-                {
-                    suggestion: "Event Handling Mechanism",
-                    details:
-                        "Establish an event-driven communication mechanism (like Apache Kafka) to handle asynchronous events between services, which will aid in scaling and improving performance."
-                },
-                {
-                    suggestion: "Implement Rate Limiting",
-                    details:
-                        "Incorporate rate limiting at the API Gateway to control the flow of requests to the LLM services, ensuring that no single service is overwhelmed during peak usage."
-                }
-            ]
-        },
-        architecture_with_quality_attributes: {
-            architecture: {
-                architecture_name: "Microservices Architecture",
-                layers: ["Presentation", "API Gateway", "Business Logic", "Data"],
-                components: [
-                    {
-                        name: "Client UI/UX (React)",
-                        description: "The user interface of the application, built using React.",
-                        dependencies: ["API Gateway"],
-                        type_component: "Service",
-                        exposed_endpoints: null,
-                        input_data: null,
-                        output_data: ["API requests"]
-                    },
-                    {
-                        name: "Client UI/UX (Angular)",
-                        description: "The user interface of the application, built using Angular.",
-                        dependencies: ["API Gateway"],
-                        type_component: "Service",
-                        exposed_endpoints: null,
-                        input_data: null,
-                        output_data: ["API requests"]
-                    },
-                    {
-                        name: "Client UI/UX (Vue)",
-                        description: "The user interface of the application, built using Vue.",
-                        dependencies: ["API Gateway"],
-                        type_component: "Service",
-                        exposed_endpoints: null,
-                        input_data: null,
-                        output_data: ["API requests"]
-                    },
-                    {
-                        name: "API Gateway",
-                        description: "A central point of entry for all API requests.",
-                        dependencies: [
-                            "Load Balancer",
-                            "LLM Code Assistant (FastAPI)",
-                            "LLM Documentation Builder (FastAPI)",
-                            "LLM Advanced RAG Planner (FastAPI)"
-                        ],
-                        type_component: "Service",
-                        exposed_endpoints: ["/code-assistant", "/documentation-builder", "/rag-planner"],
-                        input_data: ["API requests"],
-                        output_data: ["API responses"]
-                    },
-                    {
-                        name: "Load Balancer",
-                        description: "Distributes incoming requests across multiple instances of the LLM services.",
-                        dependencies: [
-                            "LLM Code Assistant (FastAPI)",
-                            "LLM Documentation Builder (FastAPI)",
-                            "LLM Advanced RAG Planner (FastAPI)"
-                        ],
-                        type_component: "Service",
-                        exposed_endpoints: null,
-                        input_data: ["API requests"],
-                        output_data: ["API requests"]
-                    },
-                    {
-                        name: "LLM Code Assistant (FastAPI)",
-                        description: "A large language model service that provides code assistance.",
-                        dependencies: null,
-                        type_component: "Service",
-                        exposed_endpoints: ["/code-assistant"],
-                        input_data: ["Code prompts"],
-                        output_data: ["Generated code"]
-                    },
-                    {
-                        name: "LLM Documentation Builder (FastAPI)",
-                        description: "A large language model service that helps build documentation.",
-                        dependencies: null,
-                        type_component: "Service",
-                        exposed_endpoints: ["/documentation-builder"],
-                        input_data: ["Documentation prompts"],
-                        output_data: ["Generated documentation"]
-                    },
-                    {
-                        name: "LLM Advanced RAG Planner (FastAPI)",
-                        description: "A large language model service that plans advanced RAG (Retrieval Augmented Generation) tasks.",
-                        dependencies: null,
-                        type_component: "Service",
-                        exposed_endpoints: ["/rag-planner"],
-                        input_data: ["RAG planning prompts"],
-                        output_data: ["RAG planning results"]
-                    }
-                ],
-                external_services: null,
-                events: null,
-                data_flow_description:
-                    "Clients send API requests to the API Gateway, which routes them to the Load Balancer. The Load Balancer distributes the requests across multiple instances of the LLM services. Each LLM service processes the request and returns a response to the API Gateway, which then sends the response back to the client."
-            },
-            quality_attributes: [
-                {
-                    attribute_name: "Scalability",
-                    current_status: "Partially Implemented",
-                    priority: 4,
-                    description:
-                        "The architecture can handle increased requests through load balancing but lacks additional mechanisms like caching or rate limiting to enhance scalability.",
-                    implementation_details:
-                        "Load balancing is implemented to distribute requests, but further enhancements like caching and rate limiting are suggested."
-                },
-                {
-                    attribute_name: "Security",
-                    current_status: "Not Implemented",
-                    priority: 5,
-                    description: "There is no current implementation of security measures for API access.",
-                    implementation_details:
-                        "It is suggested to implement an Authentication and Authorization layer at the API Gateway to secure access to services."
-                },
-                {
-                    attribute_name: "Performance",
-                    current_status: "Partially Implemented",
-                    priority: 4,
-                    description:
-                        "The architecture can perform adequately under normal load, but optimizations are suggested to improve performance.",
-                    implementation_details:
-                        "Adding a caching mechanism and rate limiting could enhance performance by reducing redundant calls and controlling request flow."
-                },
-                {
-                    attribute_name: "Maintainability",
-                    current_status: "Partially Implemented",
-                    priority: 3,
-                    description:
-                        "The microservices architecture allows for some level of maintainability, but lacks a service registry for improved service discovery.",
-                    implementation_details:
-                        "Introducing a service registry could enhance maintainability by facilitating service discovery."
-                }
-            ],
-            quality_evaluation: {
-                Scalability: 2,
-                Security: 0,
-                Performance: 2,
-                Maintainability: 2
-            }
-        }
+    const formatRequirements = (requirements: string) => {
+        return requirements.replace(/\n/g, "\\n");
     };
 
-    const onSubmit = (data: any) => {
-        toast.success("Form submitted successfully!", {
-            position: "top-center",
-            autoClose: 3000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-        });
-
+    const onSubmit = async (data: any) => {
         setLoading(true);
 
-        setTimeout(() => {
+        const formattedData = {
+            ...data,
+            requirements: formatRequirements(data.requirements)
+        };
+
+        try {
+            const response = await axios.post(
+                `${process.env.NEXT_PUBLIC_API_BASE_URL}/software-architecture-assistant`,
+                formattedData,
+                {
+                    headers: {
+                        'api-key': process.env.NEXT_PUBLIC_API_KEY,
+                    },
+                }
+            );
+
+            toast.success("Response generated successfully!", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+
             dispatch(resetArchitectureData());
+            dispatch(setArchitectureData(response.data));
 
-            setTimeout(() => {
-                dispatch(setArchitectureData(result));
-            }, 500);
-
-            setLoading(false);
             setShowDetails(true);
-        }, 2000);
+        } catch (error) {
+            console.error('Error al enviar el formulario:', error);
+            toast.error("Failed to submit the form. Please try again.", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -623,19 +111,19 @@ const NexaMindForm = () => {
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                     <div className="flex flex-col">
-                        <label htmlFor="imageUrl" className="font-medium flex items-center dark:text-white">
+                        <label htmlFor="img_url" className="font-medium flex items-center dark:text-white">
                             <FaCloudUploadAlt className="mr-2 text-xl text-blue-500" /> Image URL
                         </label>
                         <input
-                            id="imageUrl"
+                            id="img_url"
                             type="text"
-                            {...register('imageUrl')}
+                            {...register('img_url')}
                             onChange={(e) => setImageUrl(e.target.value)}
-                            className={`border ${errors.imageUrl ? 'border-red-500' : 'border-gray-300 dark:border-gray-500'} rounded-md p-2 mt-1 w-full bg-white dark:bg-gray-700 dark:text-white focus:ring focus:ring-blue-300 transition-all`}
+                            className={`border ${errors.img_url ? 'border-red-500' : 'border-gray-300 dark:border-gray-500'} rounded-md p-2 mt-1 w-full bg-white dark:bg-gray-700 dark:text-white focus:ring focus:ring-blue-300 transition-all`}
                         />
-                        {errors.imageUrl?.message && (
+                        {errors.img_url?.message && (
                             <p className="text-red-400 text-sm flex items-center mt-2">
-                                <FaExclamationCircle className="mr-1" /> {String(errors.imageUrl.message)}
+                                <FaExclamationCircle className="mr-1" /> {String(errors.img_url.message)}
                             </p>
                         )}
                     </div>
@@ -671,13 +159,13 @@ const NexaMindForm = () => {
                     </div>
 
                     <div className="flex flex-col">
-                        <label htmlFor="language" className="font-medium flex items-center dark:text-white">
+                        <label htmlFor="lang" className="font-medium flex items-center dark:text-white">
                             <IoLanguage className="mr-2 text-xl text-blue-500" /> Language
                         </label>
                         <select
-                            id="language"
-                            {...register('language')}
-                            className={`border ${errors.language ? 'border-red-500' : 'border-gray-300 dark:border-gray-500'} rounded-md p-2 mt-1 w-full bg-white dark:bg-gray-700 dark:text-white focus:ring focus:ring-blue-300 transition-all`}
+                            id="lang"
+                            {...register('lang')}
+                            className={`border ${errors.lang ? 'border-red-500' : 'border-gray-300 dark:border-gray-500'} rounded-md p-2 mt-1 w-full bg-white dark:bg-gray-700 dark:text-white focus:ring focus:ring-blue-300 transition-all`}
                         >
                             <option value="">Select Language</option>
                             <option value="en">English</option>
@@ -686,7 +174,7 @@ const NexaMindForm = () => {
                             <option value="de">German</option>
                             <option value="pt">Portuguese</option>
                         </select>
-                        {errors.language && (
+                        {errors.lang && (
                             <p className="text-red-400 text-sm flex items-center mt-2">
                                 <FaExclamationCircle className="mr-1" /> Select a valid language
                             </p>
