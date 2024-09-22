@@ -31,7 +31,7 @@ const Navbar: React.FC = () => {
                 </div>
 
                 <div className="hidden md:flex items-center space-x-6">
-                    {['Home', 'Code Assistance', 'Data Structures', 'NexaMind'].map((item) => (
+                    {['Home', 'Code Assistance', 'Data Structures', 'NexaMind', 'CodeXpert'].map((item) => (
                         <a
                             key={item}
                             href={item === 'Home' ? '/' : `/${item.toLowerCase().replace(' ', '-')}`}
@@ -82,7 +82,7 @@ const Navbar: React.FC = () => {
             {isMobileMenuOpen && (
                 <div className="md:hidden">
                     <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                        {['Home', 'Code Assistance', 'Data Structures', 'NexaMind'].map((item) => (
+                        {['Home', 'Code Assistance', 'Data Structures', 'NexaMind', 'CodeXpert'].map((item) => (
                             <a
                                 key={item}
                                 href={item === 'Home' ? '/' : `/${item.toLowerCase().replace(' ', '-')}`}
