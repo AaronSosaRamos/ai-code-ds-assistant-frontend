@@ -8,8 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { Transition } from "@headlessui/react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { darcula } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import axios from "axios";
 
-// Zod schema for form validation
 const formSchema = z.object({
   code: z.string().min(1, { message: "Code is required" }),
   programming_language: z.string().min(1, { message: "Programming language is required" }),
@@ -18,114 +18,6 @@ const formSchema = z.object({
 });
 
 type FormSchema = z.infer<typeof formSchema>;
-
-// Mock function simulating an API call
-const mockSubmission = (isAI: boolean) =>
-  new Promise((resolve) => {
-    setTimeout(() => {
-      if (isAI) {
-        // AI-related data
-        resolve({
-          code: `import tensorflow as tf\nimport numpy as np\n\nclass BadNeuralNetwork:\n    def __init__(self):\n        self.model = tf.keras.Sequential([\n            tf.keras.layers.Dense(64, input_shape=(784,)),  \n            tf.keras.layers.Dense(32), \n            tf.keras.layers.Dense(10) \n        ])\n\n    def compile(self):\n        self.model.compile(optimizer=None, loss=None)  \n\n    def train(self, X_train, y_train):\n        self.model.fit(X_train, y_train, epochs=10)  \n\ny_train = np.random.random((100, 10))  \n\nnn = BadNeuralNetwork()\n\nnn.compile()\n\nnn.train(X_train, y_train)`,
-          programming_language: "python",
-          is_ai_related: true,
-          context: "This is a bad implementation of a neural network using TensorFlow with multiple issues including missing activation functions, optimizer, loss function, and incorrect data dimensions.",
-          code_evaluation: {
-            works: false,
-            errors: [
-              "Missing optimizer in model compilation.",
-              "Missing loss function in model compilation.",
-              "The variable 'X_train' is not defined before use in 'nn.train(X_train, y_train)'.",
-              "No activation function is specified for the Dense layers.",
-              "The shape of 'y_train' should match the output shape of the network (10 classes), but it needs to be one-hot encoded or categorical in practice."
-            ],
-          },
-          refactoring_suggestions: {
-            suggestions: [
-              "Define the optimizer and loss function in the compile method.",
-              "Add activation functions to the Dense layers to improve network performance.",
-              "Ensure 'X_train' is defined with the appropriate shape and type before calling train.",
-              "One-hot encode 'y_train' to match the output of the network.",
-              "Use a proper data preprocessing step to prepare 'X_train' and 'y_train'."
-            ],
-            rationale: [
-              "Specifying an optimizer and loss function is essential for model training, allowing the model to learn effectively.",
-              "Activation functions introduce non-linearity, which is crucial for the network to learn complex patterns.",
-              "'X_train' must be defined for the training process to work; otherwise, it will result in a runtime error.",
-              "One-hot encoding 'y_train' ensures that the labels match the output layer's expected shape, which is necessary for correct training.",
-              "Data preprocessing ensures that the input features are properly scaled and shaped, which improves training efficiency and model performance."
-            ],
-          },
-          design_pattern_research: {
-            design_pattern_applicable: true,
-            pattern_name: "Procedural Design Pattern",
-            resources_found: {
-              "1": "https://www.oreilly.com/library/view/deep-learning-patterns/9781617298264/OEBPS/Text/05.htm",
-              "2": "https://arxiv.org/abs/1611.00847"
-            }
-          },
-          quality_attributes_application: {
-            attributes_applied: ["SOLID principles", "DRY", "KISS"],
-            improvements_achieved: [
-              "Applying SOLID principles, particularly the Single Responsibility Principle, enhances maintainability by ensuring that each method has a distinct purpose, such as separating the model compilation and training logic.",
-              "The DRY (Don't Repeat Yourself) principle helps avoid code duplication by encouraging the reuse of components like the model definition and preprocessing steps, which simplifies future updates and reduces the chance of errors.",
-              "KISS promotes simplicity in code design, making it easier for developers to read and understand the code."
-            ],
-          },
-          optimized_code: {
-            optimized_code: `import tensorflow as tf\nimport numpy as np\nfrom sklearn.preprocessing import OneHotEncoder\n\nclass OptimizedNeuralNetwork:\n    def __init__(self):\n        self.model = tf.keras.Sequential([\n            tf.keras.layers.Dense(64, activation='relu', input_shape=(784,)),\n            tf.keras.layers.Dense(32, activation='relu'), \n            tf.keras.layers.Dense(10, activation='softmax')\n        ])\n\n    def compile(self, optimizer='adam', loss='categorical_crossentropy'):\n        self.model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])\n\n    def train(self, X_train, y_train, epochs=10):\n        self.model.fit(X_train, y_train, epochs=epochs)\n\n    @staticmethod\n    def preprocess_data(X, y):\n        X = X.astype('float32') / 255\n        encoder = OneHotEncoder(sparse=False)\n        y = encoder.fit_transform(y.reshape(-1, 1))\n        return X, y\n\nX_train = np.random.random((100, 784))\ny_train = np.random.randint(0, 10, size=(100,))\n\nnn = OptimizedNeuralNetwork()\nX_train, y_train = nn.preprocess_data(X_train, y_train)\nnn.compile()\nnn.train(X_train, y_train)`
-          }
-        });
-      } else {
-        // Non-AI-related data
-        resolve({
-          code: `def quicksort(arr):\n    if len(arr) == 1:\n        return arr # This will fail for an empty array, causing a crash\n    pivot = arr[0]\n    left = []\n    right = []\n    for i in arr:\n        if i < pivot:\n            left.append(pivot) \n        else:\n            right.append(pivot) \n    return quicksort(left) + quicksort([pivot]) + quicksort(right) \n    \n    arr = [3, 6, 8, 10, 1, 2, 1]\n    sorted_arr = quicksort(arr)\n    print(sorted_arr)`,
-          programming_language: "python",
-          is_ai_related: false,
-          context: "This is an incorrect Quicksort algorithm that needs major refactoring and fixes.",
-          code_evaluation: {
-            works: false,
-            errors: [
-              "The quicksort function does not handle an empty array, which will cause a crash.",
-              "The pivot element is incorrectly added to the left and right lists instead of the current element being compared.",
-              "The logic for appending elements to the left and right lists is incorrect; it should append 'i', not 'pivot'.",
-              "The base case should also check for an empty array, returning the array directly if it's empty."
-            ],
-          },
-          refactoring_suggestions: {
-            suggestions: [
-              "Handle the case for an empty array in the base case of the quicksort function.",
-              "Correctly append the current element 'i' to the left and right lists instead of appending 'pivot'.",
-              "Fix the logic to ensure that elements equal to the pivot are included in the correct segment.",
-              "Refactor the recursive calls to quicksort to avoid repeating the pivot element unnecessarily."
-            ],
-            rationale: [
-              "By handling the empty array case, we prevent potential crashes when the input is an empty list.",
-              "Appending 'i' instead of 'pivot' ensures that the correct elements are being sorted into the left and right partitions.",
-              "Including elements equal to the pivot in the right partition ensures that we maintain the correct order and completeness of the sort.",
-              "Refactoring the recursive calls will improve efficiency by avoiding unnecessary duplication of the pivot in the output."
-            ],
-          },
-          design_pattern_research: {
-            design_pattern_applicable: true,
-            pattern_name: "Recursive Pattern",
-            resources_found: null
-          },
-          quality_attributes_application: {
-            attributes_applied: ["DRY", "KISS", "SOLID"],
-            improvements_achieved: [
-              "The DRY (Don't Repeat Yourself) principle was applied by ensuring that the pivot element is only added once to the final sorted array during the recursive calls, reducing redundancy and potential errors.",
-              "The KISS (Keep It Simple, Stupid) principle was applied by simplifying the logic of the quicksort implementation. This enhances readability and maintainability, making it easier for future developers to understand the sorting mechanism.",
-              "The SOLID principles were applied, particularly the Single Responsibility Principle, as each part of the quicksort function now has a clear responsibility: to sort the given list based on the pivot. This improves the maintainability of the code by making it easier to test and extend."
-            ],
-          },
-          optimized_code: {
-            optimized_code: `def quicksort(arr):\n    if len(arr) == 0:\n        return arr\n    pivot = arr[0]\n    left = [i for i in arr[1:] if i < pivot]\n    right = [i for i in arr[1:] if i >= pivot]\n    return quicksort(left) + [pivot] + quicksort(right)\n\narr = [3, 6, 8, 10, 1, 2, 1]\nsorted_arr = quicksort(arr)\nprint(sorted_arr)`
-          }
-        });
-      }
-    }, 3000); // Mocking a 3-second delay for the request
-  });
 
 const CodeXpertForm = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormSchema>({
@@ -137,10 +29,23 @@ const CodeXpertForm = () => {
 
   const onSubmit = async (data: FormSchema) => {
     setLoading(true);
-    console.log(data)
+    const formattedData = {
+      code: data.code,
+      programming_language: data.programming_language,
+      is_ai_related: data.is_ai_related,
+      context: data.context,
+    };
     try {
-      const responseData = await mockSubmission(data.is_ai_related); 
-      setResults(responseData);
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/codexpert`, 
+        formattedData,
+        {
+          headers: {
+            'api-key': process.env.NEXT_PUBLIC_API_KEY,
+          },
+        }
+      );
+      setResults(response.data);
       toast.success("Results loaded! 🎉");
     } catch (error) {
       toast.error("An error occurred! ❌");
@@ -182,7 +87,6 @@ const CodeXpertForm = () => {
             {errors.programming_language && <p className="text-red-500 text-sm flex items-center"><FaTimesCircle className="mr-2" /> {errors.programming_language.message}</p>}
           </div>
 
-          {/* AI-related radio buttons */}
           <div>
             <label className="block text-sm font-medium flex items-center space-x-2">
               <FaRobot /> <span>Is this AI-related code? 🤖</span>
@@ -209,7 +113,6 @@ const CodeXpertForm = () => {
             </div>
           </div>
 
-          {/* Context field */}
           <div>
             <label className="block text-sm font-medium flex items-center space-x-2">
               <FaCheckCircle /> <span>Context 🖋️</span>
@@ -237,7 +140,6 @@ const CodeXpertForm = () => {
 
       <ToastContainer />
 
-      {/* Results Section */}
       {results && (
         <Results data={results} />
       )}
@@ -248,7 +150,6 @@ const CodeXpertForm = () => {
 const Results = ({ data }: any) => {
   const [copyStatus, setCopyStatus] = useState("Copy Code");
 
-  // Function to copy the optimized code to clipboard
   const handleCopy = async () => {
     if (data?.optimized_code?.optimized_code) {
       try {
@@ -256,7 +157,7 @@ const Results = ({ data }: any) => {
         setCopyStatus("Copied!");
         setTimeout(() => {
           setCopyStatus("Copy Code");
-        }, 2000); // Reset button text after 2 seconds
+        }, 2000); 
       } catch (err) {
         setCopyStatus("Failed to Copy");
       }
@@ -277,7 +178,6 @@ const Results = ({ data }: any) => {
           Code Evaluation Results 📝
         </h3>
 
-        {/* Programming Language and Context */}
         <div className="mb-6 text-lg">
           <p className="mb-2">
             <strong className="text-indigo-600">Programming Language: </strong>
@@ -293,7 +193,6 @@ const Results = ({ data }: any) => {
           </p>
         </div>
 
-        {/* Original Code */}
         <div className="mb-6">
           <h4 className="text-2xl font-semibold flex items-center">
             <FaCode className="text-yellow-500 mr-2" />
@@ -304,7 +203,6 @@ const Results = ({ data }: any) => {
           </SyntaxHighlighter>
         </div>
 
-        {/* Code Evaluation */}
         <div className="mb-6">
           <h4 className="text-2xl font-semibold flex items-center">
             <FaCheckCircle className="text-green-500 mr-2" />
@@ -335,7 +233,6 @@ const Results = ({ data }: any) => {
           </ul>
         </div>
 
-        {/* Refactoring Suggestions */}
         <div className="mb-6">
           <h4 className="text-2xl font-semibold flex items-center">
             <FaWrench className="text-blue-500 mr-2" />
@@ -373,7 +270,6 @@ const Results = ({ data }: any) => {
           </ul>
         </div>
 
-        {/* Optimized Code with Copy Button */}
         <div className="mb-6">
           <h4 className="text-2xl font-semibold flex items-center justify-between">
             <span className="flex items-center">
@@ -394,7 +290,6 @@ const Results = ({ data }: any) => {
           </SyntaxHighlighter>
         </div>
 
-        {/* Quality Attributes and Improvements */}
         <div>
           <h4 className="text-2xl font-semibold flex items-center">
             <FaClipboardList className="text-indigo-600 mr-2" />
