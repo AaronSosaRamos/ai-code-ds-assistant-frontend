@@ -1,6 +1,6 @@
 'use client';
 
-import NexaMindForm from '@/components/data-structures/nexamind/Form';
+import NexaMindForm from '@/components/nexamind/Form';
 import { store } from '@/redux/store';
 import React from 'react';
 import { Provider } from 'react-redux';

@@ -1,6 +1,6 @@
 'use client';
 
-import ImprovedArchitecture from '@/components/data-structures/nexamind/ImprovedArchitecture';
+import ImprovedArchitecture from '@/components/nexamind/ImprovedArchitecture';
 import { store } from '@/redux/store';
 import React from 'react';
 import { Provider } from 'react-redux';
