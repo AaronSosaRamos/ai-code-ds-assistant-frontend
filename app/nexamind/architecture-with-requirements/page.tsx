@@ -1,6 +1,6 @@
 'use client';
 
-import ArchitectureWithRequirements from '@/components/data-structures/nexamind/ArchitectureWithRequirement';
+import ArchitectureWithRequirements from '@/components/nexamind/ArchitectureWithRequirement';
 import { store } from '@/redux/store';
 import React from 'react';
 import { Provider } from 'react-redux';
