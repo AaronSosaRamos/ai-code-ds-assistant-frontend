@@ -1,3 +1,0 @@
-[config]
-model="gemini/gemini-2.0-flash-exp"
-fallback_models=["gemini/gemini-1.5-flash"]

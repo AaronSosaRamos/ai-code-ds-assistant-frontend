@@ -16,7 +16,7 @@ jobs:
         id: pragent
         uses: Codium-ai/pr-agent@main
         env:
-          GOOGLE_AI_STUDIO.GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENAI_KEY: ${{ secrets.OPENAI_KEY }} # Make sure to add your OpenAI key to your repo secrets
           GITHUB_TOKEN: ${{ secrets.MAIN_GITHUB_TOKEN }}
           github_action_config.auto_review: "true" # enable\disable auto review
           github_action_config.auto_describe: "true" # enable\disable auto describe
